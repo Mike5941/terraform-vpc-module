@@ -28,15 +28,3 @@ resource "aws_subnet" "private_subnets" {
     Subnet = "Private"
   }
 }
-
-resource "aws_subnet" "database_subnets" {
-  for_each = var.database_subnets
-  vpc_id = aws_vpc.web_vpc.id
-  cidr_block = cidrsubnet(var.vpc_cidr, 8, each.value + 200)
-  availability_zone = local.azs[each.value]
-
-  tags = {
-    Name = "${var.project_name}-${each.key}"
-    Subnet = "Database"
-  }
-}

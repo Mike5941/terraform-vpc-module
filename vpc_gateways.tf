@@ -7,7 +7,6 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-
 # Create elastic IP
 #----------------------------------------------------
 resource "aws_eip" "eip" {
@@ -15,7 +14,6 @@ resource "aws_eip" "eip" {
     Name = "${var.project_name}-eip"
   }
 }
-
 
 # Create NAT Gateway
 #----------------------------------------------------

@@ -46,22 +46,3 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.private_rt[each.key].id
   subnet_id      = aws_subnet.private_subnets[each.key].id
 }
-
-# Database Route Table
-#----------------------------------------------------
-# Database rt
-resource "aws_route_table" "database_rt" {
-  vpc_id = aws_vpc.web_vpc.id
-
-  tags = {
-    Name = "${var.project_name}-database-rt"
-  }
-}
-
-# Private rt assoc.
-resource "aws_route_table_association" "database" {
-  depends_on     = [aws_subnet.database_subnets]
-  for_each = aws_subnet.database_subnets
-  route_table_id = aws_route_table.database_rt.id
-  subnet_id      = aws_subnet.database_subnets[each.key].id
-}
