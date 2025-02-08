@@ -16,7 +16,6 @@ variable "enable_dns_hostnames" {
   default     = true
 }
 
-
 # public subnet vars
 #----------------------------------------
 variable "public_subnets" {
@@ -25,7 +24,6 @@ variable "public_subnets" {
     "public-subnet-2" = 1
   }
 }
-
 
 # private subnet vars
 #----------------------------------------
@@ -41,23 +39,11 @@ variable "auto_ipv4" {
   default     = true
 }
 
-
-# databse subnet vars
-#---------------------------------------
-variable "database_subnets" {
-  default = {
-    "database-subnet-1" = 0
-    "database-subnet-2" = 1
-  }
-}
-
-
 # import availability zones
 #----------------------------------------
 data "aws_availability_zones" "zone" {
   state = "available"
 }
-
 
 # local variables
 #----------------------------------------
@@ -67,7 +53,6 @@ locals {
 
   public_sn_id_list = [for s in aws_subnet.public_subnets : s.id]
   private_sn_id_list = [for s in aws_subnet.private_subnets : s.id]
-  database_sn_id_list = [for s in aws_subnet.database_subnets : s.id]
   azs = [for i, az in data.aws_availability_zones.zone.names : az if i < 2]
 }
 
